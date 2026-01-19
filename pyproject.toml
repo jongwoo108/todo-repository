@@ -1,6 +1,6 @@
 [project]
 name = "todo-repository"
-version = "0.1.0"
+version = "0.1.1"
 description = "FastAPI TODO List with Docker MySQL"
 readme = "README.md"
 requires-python = ">=3.10"
