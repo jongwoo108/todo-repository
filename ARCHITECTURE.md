@@ -116,58 +116,9 @@ sequenceDiagram
 ---
 
 ## 🏛️ 전체 시스템 아키텍처 다이어그램
+<img width="830" height="777" alt="upstage_sesac drawio" src="https://github.com/user-attachments/assets/242da38a-ac0e-4cf1-b016-d85c4a8e205f" />
 
-```mermaid
-flowchart TB
-    subgraph Client["👤 Client Side"]
-        User[("🧑 사용자")]
-        Browser["🌐 Browser<br/>(Postman/Chrome)"]
-    end
 
-    subgraph Internet["🌍 Internet"]
-        DNS["🔍 DNS Server"]
-    end
-
-    subgraph AWS["☁️ AWS Cloud"]
-        subgraph VPC["VPC"]
-            SG["🔒 Security Group<br/>• Inbound: 8000, 22<br/>• Outbound: All"]
-            subgraph EC2_Instance["💻 EC2 Instance"]
-                FastAPI["⚡ FastAPI<br/>(Uvicorn :8000)"]
-                MySQL["🗄️ MySQL<br/>(Docker :3306)"]
-            end
-        end
-    end
-
-    subgraph DevOps["🔧 DevOps Pipeline"]
-        Developer["👨‍💻 Developer"]
-        LocalRepo["💾 Local Git"]
-        GitHub["🐙 GitHub<br/>Repository"]
-        Actions["⚙️ GitHub Actions<br/>(deploy.yml)"]
-    end
-
-    %% Client Flow
-    User --> Browser
-    Browser -->|"1. URL 요청"| DNS
-    DNS -->|"2. IP 반환"| Browser
-    Browser -->|"3. HTTP Request"| SG
-    SG -->|"4. 허용"| FastAPI
-    FastAPI <-->|"5. Query"| MySQL
-
-    %% CI/CD Flow
-    Developer -->|"코드 작성"| LocalRepo
-    LocalRepo -->|"git push"| GitHub
-    GitHub -->|"트리거"| Actions
-    Actions -->|"SSH 배포"| EC2_Instance
-
-    %% Styling
-    classDef aws fill:#FF9900,stroke:#232F3E,color:#232F3E
-    classDef client fill:#4285F4,stroke:#1a73e8,color:white
-    classDef devops fill:#24292E,stroke:#0366d6,color:white
-    
-    class AWS aws
-    class Client client
-    class DevOps devops
-```
 
 ---
 
